@@ -2,11 +2,12 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 
-const api = axios.create({
-  baseURL: "https://library-management-system-hctm.onrender.com/api",
+const GlobalApi = axios.create({
+  baseURL: "https://timbu-api.onrender.com",
 });
-api.interceptors.request.use((config) => {
- 
+
+
+GlobalApi.interceptors.request.use((config) => {
   let token = Cookies.get("token");
     
   // check of token already exists (user is logged in)
@@ -18,4 +19,4 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-export default api;
+export default GlobalApi;

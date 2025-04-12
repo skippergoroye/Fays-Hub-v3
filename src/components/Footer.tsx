@@ -5,8 +5,12 @@ import Link from "next/link";
 import React from "react";
 
 export default function Footer() {
+  const year = new Date().getFullYear()
+
+
+  
   return (
-    <footer className="px-6 lg:px-16 py-12 bg-[#0029FF]">
+    <footer className="px-6 lg:px-16 py-12 bg-blue-500">
       <div className="flex justify-between items-start gap-20 flex-wrap  max-lg:flex-col">
         <div className="flex items-start">
           <Link href="/">
@@ -49,7 +53,7 @@ export default function Footer() {
 
 
       <div className="flex items-center justify-center border-t mt-10">
-        <p className="mt-4 text-white">@2024  Copyright, All rights Reserved</p>
+        <p className="mt-4 text-white">@ {year} Copyright, All rights Reserved</p>
       </div>
     </footer>
   );

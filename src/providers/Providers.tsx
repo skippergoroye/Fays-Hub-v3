@@ -1,13 +1,17 @@
 import React from "react";
 import { CartProvider } from '../context/cartContext';
+import { DataProvider } from "@/context/DataContext";
 
 
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
-    <CartProvider>
-      {children}
-    </CartProvider>
+    <DataProvider>
+      <CartProvider>
+        {children}
+      </CartProvider>
+    </DataProvider>
+
   );
 };
 
