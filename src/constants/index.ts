@@ -22,7 +22,7 @@ export const MenuList = [
   {
     id: "4",
     category: "Admin",
-    link: "/admin",
+    link: "/admin/product-list",
   },
 ];
 
