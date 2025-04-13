@@ -3,6 +3,7 @@ import { Open_Sans } from "next/font/google";
 import "./globals.css";
 import Providers from "@/providers/Providers";
 import ReduxProvider from "@/redux/ReduxProvider";
+import { ToastContainer } from 'react-toastify';
 
 const opensans = Open_Sans({ 
   subsets: ["latin"],
@@ -25,6 +26,7 @@ export default function RootLayout({
    
         <Providers>
           <main>{children}</main>
+          <ToastContainer />
         </Providers>
                
         </ReduxProvider>

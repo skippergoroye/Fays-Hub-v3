@@ -2,11 +2,14 @@
 import React, { useState, useEffect, createContext, useContext } from "react";
 import GlobalApi from "@/lib/global-api";
 import { Product } from "@/types";
+import { toast } from "react-toastify";
 
 interface DataContextType {
   products: Product[];
   loading: boolean;
   deleteProduct: (id: string) => void;
+//   loadingDelete: boolean;
+  deletingProductId: string | null;
 }
 
 const DataContext = createContext<DataContextType | null>(null);
@@ -15,6 +18,7 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
   // Add Products
   const [products, setProducts] = useState<any>([]);
   const [loading, setLoading] = useState(true);
+
 
   const fetchData = async () => {
     try {
@@ -34,18 +38,27 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   // Delete Products
+
+  const [deletingProductId, setDeletingProductId] = useState<string | null>(null);
   const deleteProduct = async (id: string) => {
     try {
+        setDeletingProductId(id);
+
+    
       const res = await GlobalApi.delete(`/products/${id}`);
+      toast.info("Product deleted sucessfully");
+      fetchData()
     } catch (error) {
       console.log(error);
-    }
+    } 
   };
 
   const value = {
     products,
     loading,
     deleteProduct,
+    deletingProductId
+  
   };
 
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>;

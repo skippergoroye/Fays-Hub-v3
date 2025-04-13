@@ -8,11 +8,11 @@ const nextConfig = {
             hostname: "api.timbu.cloud",
             port: "",
           },
-          // {
-          //   protocol: "https",
-          //   hostname: "res.cloudinary.com",
-          //   port: "",
-          // },
+          {
+            protocol: "https",
+            hostname: "undraw.co",
+            port: "",
+          },
         ],
       },
   async headers() {
