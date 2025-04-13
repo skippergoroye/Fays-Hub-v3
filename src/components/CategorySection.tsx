@@ -181,7 +181,7 @@ export default function CategorySection() {
                       </div>
                     ))}
                   </div>
-                  <div className="flex justify-center mt-4">
+                  <div className="flex justify-end mt-4">
                     <button
                       onClick={() => handlePageChange(currentPage - 1)}
                       disabled={currentPage === 1}
