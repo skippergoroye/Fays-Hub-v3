@@ -8,6 +8,7 @@ import { addToCart } from "../redux/features/cart/cartSlice";
 import Image from "next/image";
 import { useRouter } from 'next/navigation';
 import { useDataContext } from '@/context/DataContext';
+import { LoaderIcon } from 'lucide-react'
 
 const ITEMS_PER_PAGE = 10; // Number of items per page
 
@@ -144,15 +145,15 @@ export default function CategorySection() {
             <div className="mt-8">
               {loading ? (
                 <div className="flex justify-center items-center">
-                  <div className="loader">Loading...</div>
+                  <div className="loader flex gap-2"><LoaderIcon className='animate-spin'/> Loading...</div>
                 </div>
               ) : (
                 <>
                   <div className="gap-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
-                    {currentProducts.map((product: any, index: any) => (
+                    {currentProducts.map((product, index) => (
                       <div
                         key={index}
-                        className="mt-2 flex flex-col gap-3 border border-[#D9D9D9] p-3 rounded-lg cursor-pointer" // Add cursor-pointer class
+                        className="mt-2 flex flex-col gap-3 border border-[#D9D9D9] p-3 rounded-lg cursor-pointer"
                         onClick={() => handleProductClick(product.id)} // Add onClick handler
                       >
                         <Image

@@ -19,6 +19,11 @@ export const MenuList = [
     category: "Contact Us",
     link: "/",
   },
+  {
+    id: "4",
+    category: "Admin",
+    link: "/admin",
+  },
 ];
 
 

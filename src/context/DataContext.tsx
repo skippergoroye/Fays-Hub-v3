@@ -1,12 +1,13 @@
 "use client"
 import React, { useState, useEffect, createContext, useContext } from "react";
 import GlobalApi from "@/lib/global-api";
+import { Product } from "@/types";
 
 
 
 
 interface DataContextType {
-    products: any;
+    products: Product[];
     loading: boolean;
 }
 

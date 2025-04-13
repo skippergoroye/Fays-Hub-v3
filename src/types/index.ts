@@ -58,3 +58,14 @@ export interface ProductInterface {
     next_page: string | null;
     items: Item[];
 }
+
+
+// New 
+export interface Product {
+    id: string;
+    imagePublicId: string;
+    imageUrl: string;
+    name: string;
+    price: number;
+    title: string;
+  }
