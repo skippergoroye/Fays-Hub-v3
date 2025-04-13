@@ -9,6 +9,7 @@ import Image from "next/image";
 import { useRouter } from 'next/navigation';
 import { useDataContext } from '@/context/DataContext';
 import { LoaderIcon } from 'lucide-react'
+import Loading from './Loading';
 
 const ITEMS_PER_PAGE = 10; // Number of items per page
 
@@ -144,9 +145,10 @@ export default function CategorySection() {
             </div>
             <div className="mt-8">
               {loading ? (
-                <div className="flex justify-center items-center">
-                  <div className="loader flex gap-2"><LoaderIcon className='animate-spin'/> Loading...</div>
-                </div>
+                // <div className="flex justify-center items-center">
+                //   <div className="loader flex gap-2"><LoaderIcon className='animate-spin'/> Loading...</div>
+                // </div>
+                <Loading />
               ) : (
                 <>
                   <div className="gap-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
