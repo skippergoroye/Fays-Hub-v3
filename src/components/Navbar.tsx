@@ -7,8 +7,10 @@ import { useAppSelector } from "../redux/app/hooks";
 import Link from "next/link";
 import { RootState } from "../redux/app/store";
 import { MenuList } from "../constants";
+import { useRouter } from "next/navigation";
 
 export default function Navbar() {
+  const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const cartItems = useAppSelector((state: RootState) => state.cart.items);
 
@@ -49,7 +51,7 @@ export default function Navbar() {
             <Search className="absolute top-1/2 right-2 transform -translate-y-1/2 text-gray-500 w-4" />
           </div>
           <div>
-            <ul className="flex gap-8 cursor-pointer">
+            <ul className="flex gap-8 cursor-pointer mt-2">
               {MenuList.map((item, index) => (
                 <Link href={item.link} key={index}>
                 <li
@@ -63,7 +65,11 @@ export default function Navbar() {
               ))}
             </ul>
           </div>
-          <div className="mt-2 flex gap-6">
+         
+          <div className="flex items-center gap-6">
+          <p onClick={() => router.push("/admin/product-list")} className=" border rounded-full p-2 text-center text-[12px] cursor-pointer">
+            Seller Dashboard
+          </p>
             <Heart size="20" />
             <Link href="/cart">
               <div className="relative cursor-pointer">
