@@ -10,6 +10,7 @@ interface DataContextType {
   deleteProduct: (id: string) => void;
 //   loadingDelete: boolean;
   deletingProductId: string | null;
+    addProduct: (data: any) => Promise<void>;
 }
 
 const DataContext = createContext<DataContextType | null>(null);
@@ -53,11 +54,27 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
     } 
   };
 
+
+
+  // Add Products 
+  const addProduct = async (data: { name: string; title: string; price: string }) => {
+    try {
+      await GlobalApi.post("/products", data);
+      toast.success("Product added successfully");
+      fetchData(); // Refresh list after adding
+    } catch (error) {
+      console.error("Add Product Error:", error);
+      toast.error("Failed to add product");
+    }
+  };
+  
+
   const value = {
     products,
     loading,
     deleteProduct,
-    deletingProductId
+    deletingProductId,
+    addProduct
   
   };
 
