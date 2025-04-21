@@ -122,7 +122,7 @@ const Admin = () => {
           <div className="flex justify-end">
           <SubmitButton
           isLoading={loading}
-            loadingText="Submiting..."
+            // loadingText="Submiting..."
             className="w-full lg:w-36  bg-mainBlue"
           >
             Submit
