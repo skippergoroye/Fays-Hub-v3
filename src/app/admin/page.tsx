@@ -12,8 +12,10 @@ import SubmitButton from "@/components/shared/SubmitButton";
 import { addProductSchema } from "@/lib/schemas";
 import { z } from "zod";
 import { useDataContext } from "@/context/DataContext";
+import Loading from '@/components/Loading';
 
 const Admin = () => {
+  const [loading, setLoading] = useState(false)
   const [files, setFiles] = useState<File[]>([]);
 
   const form = useForm<z.infer<typeof addProductSchema>>({
@@ -25,11 +27,12 @@ const Admin = () => {
     },
   });
 
-  const { addProduct } = useDataContext();
+  const { addProduct, router } = useDataContext();
 
 
   const handlesubmit = async (data: z.infer<typeof addProductSchema>) => {
     try {
+      setLoading(true)
       const formData = new FormData();
   
       // Append form values
@@ -39,14 +42,17 @@ const Admin = () => {
   
       // Append image file if it exists
       if (files[0]) {
-        formData.append("image", files[0]); // name must match your backend field
+        formData.append("image", files[0]); 
       }
   
       await addProduct(formData); // now we're passing FormData
+      router.push("admin/product-list")
       form.reset();
       setFiles([]);
     } catch (error) {
       console.error("Submission Error:", error);
+    } finally {
+      setLoading(false);
     }
   };
   
@@ -113,12 +119,18 @@ const Admin = () => {
             variant="h-[40px] w-full"
           />
 
+          <div className="flex justify-end">
           <SubmitButton
-            loadingText="Verifying OTP..."
-            className="w-full h-[50px] mt-6 bg-mainBlue"
+          isLoading={loading}
+            loadingText="Submiting..."
+            className="w-full lg:w-36  bg-mainBlue"
           >
             Submit
           </SubmitButton>
+
+          </div>
+
+        
           </form>
         </Form>
       </div>

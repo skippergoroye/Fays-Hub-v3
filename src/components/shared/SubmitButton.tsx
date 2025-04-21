@@ -2,6 +2,7 @@ import React from "react";
 import { Button } from "../ui/button";
 import { SubmitButtonProps } from "@/types";
 import { PulseLoader } from "react-spinners";
+import { LoaderIcon } from "lucide-react";
 
 const SubmitButton = ({
   isLoading,
@@ -20,7 +21,8 @@ const SubmitButton = ({
     >
       {isLoading ? (
         <div className="flex items-center gap-4">
-          <PulseLoader color="#ffffff" size="10px" />
+          {/* <PulseLoader color="#ffffff" size="10px" /> */}
+          <LoaderIcon className="animate-spin" />
           {loadingText}
         </div>
       ) : (
