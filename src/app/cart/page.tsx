@@ -11,7 +11,7 @@ import { X } from "lucide-react";
 import { useCartContext } from "@/context/cartContext";
 
 const CartPage = () => {
-  const { cartItems } = useCartContext()
+  const { cartItems, removeItem } = useCartContext()
 
 
 
@@ -48,7 +48,7 @@ const CartPage = () => {
                     <p>{item.current_price?.[0]?.USD?.[0] || 'N/A'}</p>
                   </div>
                 </div>
-                <button onClick={() => dispatch(removeFromCart(item.id))} className="text-red-500">
+                <button onClick={() => removeItem(item.id)} className="text-red-500">
                   <X />
                 </button>
               </div>

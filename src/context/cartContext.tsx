@@ -14,6 +14,7 @@ interface CartContextType {
   setId: React.Dispatch<React.SetStateAction<string | null>>;
   cartItems: CartItem[];
   addItem: (item: Omit<CartItem, "quantity">) => void;
+  removeItem: (id: string) => void
 }
 
 const CartContext = createContext<CartContextType | null>(null);
@@ -54,8 +55,19 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     localStorage.setItem("cart", JSON.stringify(cartItems));
   };
 
+
+
+   // 🧹 Remove item from cart
+   const removeItem = (id: string) => {
+    setCartItems((prev) => {
+      const updatedCart = prev.filter((item) => item.id !== id);
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
+      return updatedCart;
+    });
+  };
+
   return (
-    <CartContext.Provider value={{ id, setId, cartItems, addItem }}>
+    <CartContext.Provider value={{ id, setId, cartItems, addItem, removeItem }}>
       {children}
     </CartContext.Provider>
   );
