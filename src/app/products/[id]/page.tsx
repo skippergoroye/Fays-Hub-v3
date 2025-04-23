@@ -2,7 +2,6 @@
 
 import React from 'react'
 import { useParams } from 'next/navigation'
-import getsingleProduct from '@/lib/get-singleProduct';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation'
 

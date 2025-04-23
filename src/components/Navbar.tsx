@@ -13,7 +13,6 @@ import { useCartContext } from "@/context/cartContext";
 export default function Navbar() {
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  // const cartItems = useAppSelector((state: RootState) => state.cart.items);
   const { cartItems } = useCartContext()
 
   useEffect(() => {

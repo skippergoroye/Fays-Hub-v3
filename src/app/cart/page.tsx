@@ -1,7 +1,5 @@
 "use client"
 import Image from "next/image";
-import { RootState } from "../../redux/app/store";
-import { useAppSelector, useAppDispatch } from "../../redux/app/hooks";
 import {
   incrementQuantity,
   decrementQuantity,
@@ -10,10 +8,10 @@ import {
 import Link from "next/link";
 import { Footer, Navbar } from "@/components";
 import { X } from "lucide-react";
+import { useCartContext } from "@/context/cartContext";
 
 const CartPage = () => {
-  const cartItems = useAppSelector((state: RootState) => state.cart.items);
-  const dispatch = useAppDispatch();
+  const { cartItems } = useCartContext()
 
 
 
@@ -31,7 +29,7 @@ const CartPage = () => {
           <div>
             {cartItems.map((item) => (
               <div key={item.id} className="flex items-center justify-between mb-4 border-b pb-4">
-                <Image src={`https://api.timbu.cloud/images/${item.photos[0]?.url}`} alt={item.name ?? ""} width={100} height={100} />
+                <Image src={item?.imageUrl} alt={item.name ?? ""} width={100} height={100} />
                 <div>
                   <p className="mb-2 font-bold">Product Name</p>
                   <p>{item.name}</p>
