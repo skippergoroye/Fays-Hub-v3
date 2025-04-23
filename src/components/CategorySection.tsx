@@ -10,17 +10,15 @@ import { useRouter } from 'next/navigation';
 import { useDataContext } from '@/context/DataContext';
 import { LoaderIcon } from 'lucide-react'
 import Loading from './Loading';
+import { useCartContext } from '@/context/cartContext';
 
 const ITEMS_PER_PAGE = 10; // Number of items per page
 
 export default function CategorySection() {
   const router = useRouter(); 
-  const dispatch = useAppDispatch();
   const { products, loading } = useDataContext()
 
-  const handleAddToCart = (item: any) => {
-    dispatch(addToCart(item));
-  };
+
 
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -43,6 +41,21 @@ export default function CategorySection() {
   const handleProductClick = (productId: string) => {
     router.push(`/products/${productId}`);
   };
+
+
+
+
+  // context api 
+  const { addItem } = useCartContext();
+  const handleAddToCart = (product: any) => {
+    addItem({
+      id: product.id,
+      name: product.name,
+      price: Number(product.price),
+      imageUrl: product.imageUrl,
+    });
+  };
+  
 
   return (
     <section className="px-6 lg:px-16 py-2 lg:py-8">
@@ -171,7 +184,7 @@ export default function CategorySection() {
                             className="flex bg-[#536EFD] hover:bg-blue-800 text-white items-center justify-center p-2 rounded-lg w-30 lg:w-40 transition-all duration-500"
                             onClick={(e) => {
                               e.stopPropagation(); // Prevent event from bubbling up to the parent div
-                              handleAddToCart(product);
+                              handleAddToCart(product); 
                             }}
                           >
                             <ShoppingCart />

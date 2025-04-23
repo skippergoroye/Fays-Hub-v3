@@ -8,11 +8,13 @@ import Link from "next/link";
 import { RootState } from "../redux/app/store";
 import { MenuList } from "../constants";
 import { useRouter } from "next/navigation";
+import { useCartContext } from "@/context/cartContext";
 
 export default function Navbar() {
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const cartItems = useAppSelector((state: RootState) => state.cart.items);
+  // const cartItems = useAppSelector((state: RootState) => state.cart.items);
+  const { cartItems } = useCartContext()
 
   useEffect(() => {
     // Check if the cart is empty and perform a reload or any necessary action
