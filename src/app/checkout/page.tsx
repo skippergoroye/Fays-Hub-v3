@@ -1,13 +1,12 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import { RootState } from "../../redux/app/store";
-import { useAppSelector } from "../../redux/app/hooks";
 import { Footer, Navbar } from "@/components";
 import { useRouter } from "next/navigation";
+import { useCartContext } from "@/context/cartContext";
 
 export default function Checkout() {
-  const cartItems = useAppSelector((state: RootState) => state.cart.items);
+    const { cartItems } = useCartContext()
   const router = useRouter();
 
 
@@ -15,7 +14,7 @@ export default function Checkout() {
   console.log(cartItems)
 
   const totalAmount = cartItems.reduce((total, item) => {
-    const price = parseFloat(item.current_price?.[0]?.USD?.[0]);
+    const price = item.price;
     return total + price * item.quantity;
   }, 0);
 
@@ -215,7 +214,7 @@ export default function Checkout() {
                       className="flex items-center justify-between mb-4 border-b pb-4"
                     >
                       <Image
-                        src={`https://api.timbu.cloud/images/${item.photos[0]?.url}`}
+                        src={item.imageUrl}
                         alt={item.name ?? ""}
                         width={100}
                         height={100}
@@ -223,12 +222,12 @@ export default function Checkout() {
                       <p>{item.name}</p>
                       <p>
                         {item.quantity} x{" "}
-                        {item.current_price?.[0]?.USD?.[0] || "N/A"}
+                        {item?.price || "N/A"}
                       </p>
                       <p>
                         $
                         {(
-                          parseFloat(item.current_price?.[0]?.USD?.[0]) *
+                          item?.price *
                           item.quantity
                         ).toFixed(2)}
                       </p>

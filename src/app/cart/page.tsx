@@ -11,7 +11,7 @@ import { X } from "lucide-react";
 import { useCartContext } from "@/context/cartContext";
 
 const CartPage = () => {
-  const { cartItems, removeItem } = useCartContext()
+  const { cartItems, removeItem, increaseItemQuantity, decreaseItemQuantity } = useCartContext()
 
 
 
@@ -38,14 +38,14 @@ const CartPage = () => {
                   <div className="flex flex-col mr-4">
                     <p className="mb-2 font-bold">Quantity</p>
                     <div className="flex items-center border border-[#D9D9D9] p-1 rounded-lg">
-                      <button onClick={() => dispatch(decrementQuantity(item.id))} className="px-2">-</button>
+                      <button onClick={() => decreaseItemQuantity(item.id)} className="px-2">-</button>
                       <p className="px-2">{item.quantity}</p>
-                      <button onClick={() => dispatch(incrementQuantity(item.id))} className="px-2">+</button>
+                      <button onClick={() => increaseItemQuantity(item.id)} className="px-2">+</button>
                     </div>
                   </div>
                   <div>
                     <p className="mb-2 font-bold">Price</p>
-                    <p>{item.current_price?.[0]?.USD?.[0] || 'N/A'}</p>
+                    <p>{item?.price || 'N/A'}</p>
                   </div>
                 </div>
                 <button onClick={() => removeItem(item.id)} className="text-red-500">
