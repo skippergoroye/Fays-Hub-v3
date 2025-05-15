@@ -1,32 +1,45 @@
-'use client'
+"use client";
+import { useEffect, useState } from "react";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import PaymentForm from "@/components/PaymentForm";
+import GlobalApi from "@/lib/global-api";
+// import GlobalApi from "@/utils/GlobalApi"; // adjust import path as needed
 
-import React from "react";
-import Image from "next/image";
-import { useRouter } from 'next/navigation'
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!);
 
-export default function PayNow() {
-    const router = useRouter()
+export default function PayNowPage() {
+  const [clientSecret, setClientSecret] = useState("");
+
+  useEffect(() => {
+    const cart = [
+      {
+        id: 1,
+        name: "Test Product",
+        price: 2000, // in cents
+        quantity: 1,
+        imageUrl: "https://via.placeholder.com/100",
+      },
+    ];
+
+    GlobalApi.post("/products/checkout", {
+      items: cart,
+      email: "giftomos93@gmail.com",
+    })
+      .then((res) => setClientSecret(res.data.clientSecret))
+      .catch((err) => {
+        console.error("Failed to create payment intent:", err);
+      });
+  }, []);
+
+  if (!clientSecret) return <p>Loading payment...</p>;
+
   return (
-    <section className="flex justify-center items-center min-h-screen">
-      <div>
-        <div className="mb-4 flex items-center justify-center">
-          <button onClick={() => router.push("/")} className="text-center cursor-pointer bg-green-500 w-40 p-2 rounded-lg text-white hover:bg-green-800">Back To Home</button>
-        </div>
-        <div className="p-4 sm:p-6 w-full sm:w-[600px] h-auto sm:h-[400px] bg-gray-100 border gap-4 sm:gap-10 flex flex-col items-center justify-center rounded-lg shadow-2xl">
-          <Image
-            src="/svg/ri_verified-badge-line.svg"
-            alt="success-image"
-            width={100}
-            height={100}
-          />
-          <h1 className="text-center">Payment Successful</h1>
-        </div>
+    <Elements stripe={stripePromise} options={{ clientSecret }}>
+      <div className="max-w-xl mx-auto p-4">
+        <h2 className="text-2xl font-bold mb-4">Complete Your Payment</h2>
+        <PaymentForm clientSecret={clientSecret} />
       </div>
-    </section>
+    </Elements>
   );
 }
-
-
-
-
-
