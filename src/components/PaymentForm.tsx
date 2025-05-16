@@ -44,7 +44,7 @@ export default function PaymentForm({ clientSecret }: Props) {
       <button
         type="submit"
         disabled={!stripe || isProcessing}
-        className="mt-4 bg-green-600 hover:bg-green-800 text-white py-2 px-4 rounded"
+        className="mt-4 bg-blue-600 hover:bg-green-800 text-white py-2 px-4 rounded"
       >
         {isProcessing ? "Processing..." : "Confirm Payment"}
       </button>

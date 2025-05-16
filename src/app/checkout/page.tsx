@@ -4,6 +4,8 @@ import Image from "next/image";
 import { Footer, Navbar } from "@/components";
 import { useRouter } from "next/navigation";
 import { useCartContext } from "@/context/cartContext";
+import CustomModal from "@/components/shared/CustomModal";
+import PayNowPage from "../paynow/page";
 
 export default function Checkout() {
     const { cartItems } = useCartContext()
@@ -20,9 +22,13 @@ export default function Checkout() {
 
 
 
+  // modal control
+  const [openCheckoutModal, setOpenCheckoutModal] = useState(false)
+
   const handlePlaceOrder = () => {
+    setOpenCheckoutModal(!openCheckoutModal)
     // localStorage.removeItem("cart");
-    router.push("/paynow", { scroll: false });
+    // router.push("/paynow", { scroll: false });
   };
 
   return (
@@ -251,6 +257,10 @@ export default function Checkout() {
         </div>
       </div>
       <Footer />
+
+      <CustomModal isOpen={openCheckoutModal} onClose={() => setOpenCheckoutModal(!openCheckoutModal)}>
+        <PayNowPage />
+      </CustomModal>
     </section>
   );
 }

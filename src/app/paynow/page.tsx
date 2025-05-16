@@ -35,12 +35,15 @@ export default function PayNowPage() {
       });
   }, []);
 
+
+  const totalAmount = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
+
   if (!clientSecret) return <p>Loading payment...</p>;
 
   return (
     <Elements stripe={stripePromise} options={{ clientSecret }}>
-      <div className="max-w-xl mx-auto p-4">
-        <h2 className="text-2xl font-bold mb-4">Complete Your Payment</h2>
+      <div className="w-full mx-auto">
+      <h2 className="text-2xl font-bold mb-4 text-blue-500">Pay Skipper ${totalAmount}</h2>
         <PaymentForm clientSecret={clientSecret} />
       </div>
     </Elements>
