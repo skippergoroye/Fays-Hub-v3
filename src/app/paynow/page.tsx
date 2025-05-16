@@ -4,26 +4,29 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import PaymentForm from "@/components/PaymentForm";
 import GlobalApi from "@/lib/global-api";
+import { useCartContext } from "@/context/cartContext";
 // import GlobalApi from "@/utils/GlobalApi"; // adjust import path as needed
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!);
 
 export default function PayNowPage() {
   const [clientSecret, setClientSecret] = useState("");
+  const { cartItems } = useCartContext()
+  const cart = JSON.parse(localStorage.getItem("cart") || "[]");
 
   useEffect(() => {
-    const cart = [
-      {
-        id: 1,
-        name: "Test Product",
-        price: 2000, // in cents
-        quantity: 1,
-        imageUrl: "https://via.placeholder.com/100",
-      },
-    ];
+    // const cart = [
+    //   {
+    //     id: 1,
+    //     name: "Test Product",
+    //     price: 2000, // in cents
+    //     quantity: 1,
+    //     imageUrl: "https://via.placeholder.com/100",
+    //   },
+    // ];
 
     GlobalApi.post("/products/checkout", {
-      items: cart,
+      items: cartItems,
       email: "giftomos93@gmail.com",
     })
       .then((res) => setClientSecret(res.data.clientSecret))

@@ -21,9 +21,8 @@ export default function Checkout() {
 
 
   const handlePlaceOrder = () => {
-    localStorage.removeItem("cart");
+    // localStorage.removeItem("cart");
     router.push("/paynow", { scroll: false });
-    // alert("Order placed successfully!");
   };
 
   return (

@@ -15,7 +15,7 @@ const CartPage = () => {
 
 
 
-  console.log(cartItems)
+  // console.log("cartItems", cartItems)
 
   return (
     <section>
