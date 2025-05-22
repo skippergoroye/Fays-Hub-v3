@@ -9,7 +9,7 @@ import { useCartContext } from "@/context/cartContext";
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!);
 
-export default function PayNowPage() {
+export default function PayNowPage({ email }: { email: string }) {
   const [clientSecret, setClientSecret] = useState("");
   const { cartItems } = useCartContext()
   const cart = JSON.parse(localStorage.getItem("cart") || "[]");
@@ -27,7 +27,8 @@ export default function PayNowPage() {
 
     GlobalApi.post("/products/checkout", {
       items: cartItems,
-      email: "giftomos93@gmail.com",
+      email: email,
+      // email: "giftomos93@gmail.com",
     })
       .then((res) => setClientSecret(res.data.clientSecret))
       .catch((err) => {

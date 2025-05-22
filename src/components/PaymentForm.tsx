@@ -14,6 +14,12 @@ export default function PaymentForm({ clientSecret }: Props) {
   const [isProcessing, setIsProcessing] = useState(false);
   const [paymentStatus, setPaymentStatus] = useState("");
 
+
+
+
+  // Calculate the total amount from cartItems
+  const amount = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+
  const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
   if (!stripe || !elements) return;
@@ -23,7 +29,8 @@ export default function PaymentForm({ clientSecret }: Props) {
   const result = await stripe.confirmPayment({
     elements,
     confirmParams: {
-      return_url: window.location.origin + "/payment-success", // optional
+      // return_url: window.location.origin + "/payment-success", // optional
+      return_url: `http://localhost:3000/payment-success?amount=${amount}`,// optional
     },
   });
 
@@ -44,7 +51,7 @@ export default function PaymentForm({ clientSecret }: Props) {
       <button
         type="submit"
         disabled={!stripe || isProcessing}
-        className="mt-4 bg-blue-600 hover:bg-green-800 text-white py-2 px-4 rounded"
+        className="mt-4 bg-blue-600 hover:bg-blue-800 text-white py-2 px-4 rounded"
       >
         {isProcessing ? "Processing..." : "Confirm Payment"}
       </button>
