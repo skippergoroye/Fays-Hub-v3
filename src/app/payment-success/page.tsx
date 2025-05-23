@@ -1,26 +1,13 @@
-"use client";
+import dynamic from "next/dynamic";
+import { Suspense } from "react";
 
-import React from "react";
-import { useSearchParams } from "next/navigation";
+// Lazy-load the client component
+const PaymentSuccessClient = dynamic(() => import("@/components/PaymentSuccessClient"), { ssr: false });
 
-const Payment = () => {
-  const searchParams = useSearchParams();
-  const amount = searchParams.get("amount");
-
-  if (!amount) {
-    return <div className="text-center text-white">No amount provided</div>;
-  }
+export default function PaymentSuccessPage() {
   return (
-    <div className="max-w-6xl mx-auto p-10 text-white text-center border m-10 rounded-md bg-gradient-to-tr from-blue-500 to-purple-500">
-      <div className="mb-10">
-        <h1 className="text-4xl font-extrabold mb-2">Thank you!</h1>
-        <h2 className="text-2xl">You have successfully sent</h2>
-        <div className="bg-white p-2 rounded-md mt-5 text-purple-500 text-4xl font-bold">
-          ${amount}
-        </div>
-      </div>
-    </div>
+    <Suspense fallback={<div className="text-center text-white">Loading...</div>}>
+      <PaymentSuccessClient />
+    </Suspense>
   );
-};
-
-export default Payment;
+}

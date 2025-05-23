@@ -9,7 +9,7 @@ import { useCartContext } from "@/context/cartContext";
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!);
 
-export default function PayNowPage({ email }: { email: string }) {
+const  PayNow = ({ email }: { email: string }) => {
   const [clientSecret, setClientSecret] = useState("");
   const { cartItems } = useCartContext()
   const cart = JSON.parse(localStorage.getItem("cart") || "[]");
@@ -34,7 +34,7 @@ export default function PayNowPage({ email }: { email: string }) {
       .catch((err) => {
         console.error("Failed to create payment intent:", err);
       });
-  }, []);
+  }, [cartItems]);
 
 
   const totalAmount = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
@@ -50,3 +50,5 @@ export default function PayNowPage({ email }: { email: string }) {
     </Elements>
   );
 }
+
+export default PayNow;
