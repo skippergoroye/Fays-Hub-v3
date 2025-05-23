@@ -13,6 +13,8 @@ interface DataContextType {
   deletingProductId: string | null;
   addProduct: (data: any) => Promise<void>;
   router: ReturnType<typeof useRouter>;
+  orderProducts: any[];
+  loadingOrders: boolean;
 }
 
 const DataContext = createContext<DataContextType | null>(null);
@@ -28,7 +30,7 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
       setLoading(true);
       const res = await GlobalApi.get("/products");
       setProducts(res.data);
-      console.log(res.data);
+      // console.log(res.data);
     } catch (error) {
       console.log(error);
     } finally {
@@ -73,6 +75,29 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
+
+
+
+  // order Product
+  const [orderProducts, setOrderProducts] = useState([])
+  const [loadingOrders, setLoadingOrders] = useState(false)
+  const fetchOrderProduct = async () => {
+    try {
+      setLoadingOrders(true);
+      const res = await GlobalApi.get("/orders");
+      setOrderProducts(res.data);
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoadingOrders(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchOrderProduct();
+  }, []);
+
   const value = {
     router,
     products,
@@ -80,6 +105,8 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
     deleteProduct,
     deletingProductId,
     addProduct,
+    orderProducts,
+    loadingOrders
   };
 
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>;

@@ -5,7 +5,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import PaymentForm from "@/components/PaymentForm";
 import GlobalApi from "@/lib/global-api";
 import { useCartContext } from "@/context/cartContext";
-// import GlobalApi from "@/utils/GlobalApi"; // adjust import path as needed
+
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!);
 

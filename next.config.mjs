@@ -13,6 +13,16 @@ const nextConfig = {
             hostname: "undraw.co",
             port: "",
           },
+          {
+            protocol: "https",
+            hostname: "res.cloudinary.com",
+            port: "",
+          },
+          {
+            protocol: "https",
+            hostname: "via.placeholder.com", // ✅ Added this line
+            port: "",
+          },
         ],
       },
   async headers() {
