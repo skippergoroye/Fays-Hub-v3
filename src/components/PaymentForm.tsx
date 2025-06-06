@@ -30,7 +30,7 @@ export default function PaymentForm({ clientSecret }: Props) {
     elements,
     confirmParams: {
       // return_url: window.location.origin + "/payment-success", // optional
-      return_url: `http://localhost:3000/payment-success?amount=${amount}`,// optional
+      return_url: `https://fays-hub-v3.vercel.app/payment-success?amount=${amount}`,// optional
     },
   });
 
