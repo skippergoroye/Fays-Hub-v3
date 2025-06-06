@@ -1,8 +1,18 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 
 const PaymentSuccessClient = () => {
+  useEffect(() => {
+  const timer = setTimeout(() => {
+    window.location.href = "/admin/orders";
+  }, 5000); // Redirect after 5 seconds
+
+  return () => {
+    clearTimeout(timer); // Cleanup
+  };
+}, []);
   const searchParams = useSearchParams();
   const amount = searchParams.get("amount");
 
