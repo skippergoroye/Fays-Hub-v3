@@ -17,6 +17,7 @@ import Loading from '@/components/Loading';
 const Admin = () => {
   const [loading, setLoading] = useState(false)
   const [files, setFiles] = useState<File[]>([]);
+  const [description, setDescription] = useState('hhsjsjsjsj')
 
   const form = useForm<z.infer<typeof addProductSchema>>({
     resolver: zodResolver(addProductSchema),
@@ -39,6 +40,7 @@ const Admin = () => {
       formData.append("name", data.name);
       formData.append("title", data.title);
       formData.append("price", data.price);
+      formData.append("description",   description);
   
       // Append image file if it exists
       if (files[0]) {
