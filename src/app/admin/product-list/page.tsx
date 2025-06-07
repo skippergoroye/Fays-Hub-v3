@@ -72,7 +72,7 @@ console.log("Products:", products);
                         <span className="truncate w-full">{product.name}</span>
                       </td>
                       <td className="px-4 py-3 max-sm:hidden">
-                        {product.name}
+                        {product.title}
                       </td>
                       <td className="px-4 py-3">${product.price}</td>
                       <td className="px-4 py-3 max-sm:hidden">
