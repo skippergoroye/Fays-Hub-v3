@@ -5,11 +5,16 @@ import { useDataContext } from "@/context/DataContext";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { LoaderIcon } from "lucide-react";
+import { log } from "console";
 
 const ProductList = () => {
   const router = useRouter();
   const { products, loading, deleteProduct, deletingProductId } =
     useDataContext();
+
+
+console.log("Products:", products);
+  
 
   return (
     <div className="flex-1 min-h-screen flex flex-col justify-between">

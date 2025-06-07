@@ -17,13 +17,13 @@ import Loading from "@/components/Loading";
 const Admin = () => {
   const [loading, setLoading] = useState(false);
   const [files, setFiles] = useState<File[]>([]);
-  const [title ] = useState("hshshsh");
+
   const form = useForm<z.infer<typeof addProductSchema>>({
     resolver: zodResolver(addProductSchema),
     defaultValues: {
       name: "",
+      title: "",
       price: "",
-      description: "",
     },
   });
 
@@ -36,14 +36,18 @@ const Admin = () => {
 
       // Append form values
       formData.append("name", data.name);
-      formData.append("title", title);
+      formData.append("title", data.title);
       formData.append("price", data.price);
-      formData.append("description", data.description);
+  
 
       // Append image file if it exists
       if (files[0]) {
         formData.append("image", files[0]);
       }
+
+      // Array.from(formData.entries()).forEach(([key, value]) => {
+      //   console.log(`${key}:`, value);
+      // });
 
       await addProduct(formData); // now we're passing FormData
       router.push("admin/product-list");
@@ -104,7 +108,7 @@ const Admin = () => {
               <CustomFormField
                 fieldType={FormFieldType.INPUT}
                 control={form.control}
-                name="description"
+                name="title"
                 label="Description"
                 placeholder="Enter Product Description"
                 variant="h-[40px] w-full lg:w-[350px]"
